@@ -710,7 +710,7 @@ class AdminOrdersControllerCore extends AdminController
                             $order_detail_list[$id_order_detail]['unit_price'] = $order_detail_list[$id_order_detail]['amount'] / $order_detail_list[$id_order_detail]['quantity'];
                         }
                         $amount += $order_detail_list[$id_order_detail]['amount'];
-                        if (!$order->hasBeenDelivered() || ($order->hasBeenDelivered() && Tools::isSubmit('reinjectQuantities')) && $order_detail_list[$id_order_detail]['quantity'] > 0) {
+                        if (Tools::isSubmit('reinjectQuantities') && $order_detail_list[$id_order_detail]['quantity'] > 0) {
                             $this->reinjectQuantity($order_detail, $order_detail_list[$id_order_detail]['quantity']);
                         }
                     }
@@ -977,7 +977,7 @@ class AdminOrdersControllerCore extends AdminController
                                 $qty_cancel_product = abs($qtyList[$key]);
                                 $order_detail = new OrderDetail((int) ($id_order_detail));
 
-                                if (!$order->hasBeenDelivered() || ($order->hasBeenDelivered() && Tools::isSubmit('reinjectQuantities')) && $qty_cancel_product > 0) {
+                                if (Tools::isSubmit('reinjectQuantities') && $qty_cancel_product > 0) {
                                     $this->reinjectQuantity($order_detail, $qty_cancel_product);
                                 }
 
